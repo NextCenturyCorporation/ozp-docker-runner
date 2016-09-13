@@ -10,7 +10,13 @@ ENV OZP_RELEASE=ozp-backend.tar.gz
 # Add the ozp release bundle.  Note that using `ADD` here automatically
 # extracts the release tarball
 ADD $OZP_RELEASE /
+
+# Add certs directory
+ADD certs /certs
+
 WORKDIR /release
+
+RUN chmod -R 400 /certs
 
 # Install missing native libraries required by Python Imaging Library
 
@@ -20,7 +26,16 @@ RUN echo 'deb http://ftp.de.debian.org/debian wheezy main' >> /etc/apt/sources.l
     apt-get update && \
     apt-get install libjpeg8 libopenjp2-7
 
+# Install python dependency packages
 RUN pip install --no-index --find-links=wheelhouse -r requirements.txt
+
+VOLUME /ozp-config
+VOLUME /ozp-database
+VOLUME /ozp-media
+VOLUME /ozp-logs
+
+# Remove the default settings.py file and use the one from the volume
+RUN rm ozp/settings.py && ln -s /ozp-config/backend-settings.py ozp/settings.py
 
 EXPOSE 8000
 
