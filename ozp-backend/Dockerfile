@@ -29,13 +29,23 @@ RUN echo 'deb http://ftp.de.debian.org/debian wheezy main' >> /etc/apt/sources.l
 # Install python dependency packages
 RUN pip install --no-index --find-links=wheelhouse -r requirements.txt
 
-VOLUME /ozp-config
-VOLUME /ozp-database
-VOLUME /ozp-media
-VOLUME /ozp-logs
+# Create initial database and move it into /var/lib/ozp
+# Since this is done before the volume is declared, the contents set in it
+# here will be copied into the new volume when it is first created
+RUN python manage.py makemigrations ozpcenter && \
+    python manage.py makemigrations ozpiwc && \
+    python manage.py migrate && \
+    mkdir -p /var/lib/ozp && \
+    mv db.sqlite3 /var/lib/ozp/ozp-db.sqlite3
+
+VOLUME /etc/ozp
+VOLUME /var/lib/ozp
+VOLUME /mnt/media
+VOLUME /var/log/ozp
+VOLUME /certs
 
 # Remove the default settings.py file and use the one from the volume
-RUN rm ozp/settings.py && ln -s /ozp-config/backend-settings.py ozp/settings.py
+RUN rm ozp/settings.py && ln -s /etc/ozp/backend-settings.py ozp/settings.py
 
 EXPOSE 8000
 

@@ -14,5 +14,7 @@ WORKDIR /demo-auth-service
 
 RUN pip install -r requirements.txt
 
+VOLUME /var/log/ozp-auth
+
 EXPOSE 8000
 ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:8000", "demoauth.wsgi"]

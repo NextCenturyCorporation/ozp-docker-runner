@@ -101,7 +101,7 @@ if MAIN_DATABASE == 'sqlite':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': '/ozp-database/ozp-db.sqlite3',
+            'NAME': '/var/lib/ozp/ozp-db.sqlite3',
         }
     }
 elif MAIN_DATABASE == 'postgresql':
@@ -123,7 +123,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': '/ozp-logs/ozp.log',
+            'filename': '/var/log/ozp/ozp.log',
             'formatter': 'json',
         }
     },
@@ -177,7 +177,7 @@ MEDIA_ROOT = os.path.join('/ozp-media')
 
 # MEDIA_URL is the relative browser URL to be used when accessing media files
 #   from the browser
-MEDIA_URL = 'media/'
+MEDIA_URL = '/mnt/media/'
 
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'ozpcenter.errors.exception_handler',

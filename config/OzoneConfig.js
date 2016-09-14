@@ -1,20 +1,20 @@
 // Get the root URL, including protocol/port
-var windowRootUrl = window.location.href.replace(window.location.pathname, '');
+var windowRootUrl = window.location.protocol + '//' + window.location.host;
 
 window.OzoneConfig = {
-    "API_URL": windowRootUrl + "/",
-    "HELP_URL": windowRootUrl + "/help/#/",
+    "API_URL": windowRootUrl + "/ozp-backend",
+    "HELP_URL": windowRootUrl + "/ozp-help/#/",
     "METRICS_URL": "https://localhost:4450/",
     "METRICS_HUD_SITE_ID": 13,
     "METRICS_WEBTOP_SITE_ID": 12,
     "IE_REDIRECT_URL": "https://browser-update.org/update.html",
-    "CENTER_URL": windowRootUrl + "/center/",
+    "CENTER_URL": windowRootUrl + "/ozp-center/",
     "CENTER_REVIEWS_CHAR_LIMIT": 20,
-    "HUD_URL": windowRootUrl + "/hud/",
-    "WEBTOP_URL": windowRootUrl + "/webtop/",
-    "IWC_URL": windowRootUrl + "/iwc/",
+    "HUD_URL": windowRootUrl + "/ozp-hud/",
+    "WEBTOP_URL": windowRootUrl + "/ozp-webtop/",
+    "IWC_URL": windowRootUrl + "/ozp-iwc/",
     //demo apps expect this format
-    "iwcUrl": windowRootUrl + "/iwc/",
+    "iwcUrl": windowRootUrl + "/ozp-iwc/",
     "DEVELOPER_RESOURCES_URL": "#",
     "APP_TITLE": 'AppsMall Center',
     "FEEDBACK_ADDRESS": "mailto:person@address.com",
