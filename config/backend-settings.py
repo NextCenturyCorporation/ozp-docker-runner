@@ -121,7 +121,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'handlers': {
         'file': {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': '/var/log/ozp/ozp.log',
             'formatter': 'json',
@@ -134,15 +134,15 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['file'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
         },
         'ozp-center': {
             'handlers': ['file'],
-            'level': 'INFO',
+            'level': 'DEBUG',
         },
         'ozp-iwc': {
             'handlers': ['file'],
-            'level': 'INFO',
+            'level': 'DEBUG',
         }
     },
 }
@@ -173,11 +173,11 @@ STATIC_URL = '/static/'
 
 # MEDIA_ROOT is the absolute path to the folder that will hold user uploads
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-MEDIA_ROOT = os.path.join('/ozp-media')
+MEDIA_ROOT = '/mnt/media'
 
 # MEDIA_URL is the relative browser URL to be used when accessing media files
 #   from the browser
-MEDIA_URL = '/mnt/media/'
+MEDIA_URL = '/media/'
 
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'ozpcenter.errors.exception_handler',
@@ -215,18 +215,18 @@ REST_FRAMEWORK = {
 }
 
 # NOTE: In production, comment REDIS_CLIENT_CLASS line
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django_redis.cache.RedisCache',
-#         'LOCATION': 'redis://:hF2KLXJhhmhDdZKzsG8edGbECKN9kMn26XKhmNAA@localhost:6379/',
-#         'OPTIONS':{
-#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-#              # "REDIS_CLIENT_CLASS": "mockredis.mock_strict_redis_client",
-#             'COMPRESSOR': 'django_redis.compressors.lzma.LzmaCompressor',
-#             'SERIALIZER': 'django_redis.serializers.msgpack.MSGPackSerializer',
-#         }
-#     },
-# }
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://ozp-cache:6379',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            # 'REDIS_CLIENT_CLASS': 'mockredis.mock_strict_redis_client',
+            'COMPRESSOR': 'django_redis.compressors.lzma.LzmaCompressor',
+            'SERIALIZER': 'django_redis.serializers.msgpack.MSGPackSerializer'
+        }
+    },
+}
 
 # django-cors-headers
 # TODO: lock this down in production
@@ -237,7 +237,7 @@ OZP = {
     'DEMO_APP_ROOT': 'https://ozp-demo:8443',
     # if set to False, never try and update authorization-related info from
     # an external source
-    'USE_AUTH_SERVER': True,
+    'USE_AUTH_SERVER': False,
     # convert DNs read as /CN=My Name/OU=Something... to CN=My Name, OU=Something
     'PREPROCESS_DN': True,
     'OZP_AUTHORIZATION': {
@@ -245,7 +245,7 @@ OZP = {
         'SERVER_KEY': '/certs/private/server.key',
         'USER_INFO_URL': r'http://ozp-auth:8000/demo-auth/users/%s/info.json?issuerDN=%s',
         # assumes the real URL is <root>/users/<DN>/groups/<PROJECT_NAME>/
-        'USER_GROUPS_URL': r'http://localhost:8000/demo-auth/users/%s/groups/%s/',
+        'USER_GROUPS_URL': r'http://ozp-auth:8000/demo-auth/users/%s/groups/%s/',
         # name of the group in the auth service for apps mall stewards
         'APPS_MALL_STEWARD_GROUP_NAME': 'OZP_APPS_MALL_STEWARD',
         # name of the group in the auth service for org stewards

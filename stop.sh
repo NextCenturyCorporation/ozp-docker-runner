@@ -7,3 +7,6 @@ docker stop ${containers[*]}
 
 echo 'REMOVING'
 docker rm ${containers[*]}
+
+echo 'STOPPING AND REMOVING CACHE'
+./stop-cache.sh

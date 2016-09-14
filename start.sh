@@ -7,20 +7,24 @@ script_dir="$(dirname "$0")"
 # Absolute path of the directory containing the script
 script_absolute_dir="$(cd "${script_dir}" && pwd)"
 
+# Redis cache server
+./start-cache.sh
+
 # Auth Server
 docker run \
     --name ozp-auth \
-    -v "${script_absolute_dir}/logs/ozp-auth:/var/log/ozp-auth" \
+    -v "${script_absolute_dir}/config:/etc/ozp:ro" \
+    -v "${script_absolute_dir}/logs/ozp-auth:/var/log/ozp" \
     -d \
     ozp-auth:latest
 
 # Backend
 # Mount "named volumes" for the database and media.
-# Mount the ozp-config directory.  Use a specific host directory
-# for this so that the user can easily modify the configs.  Read-only to the container
+# Mount the host directories for config, logs, and certs
 docker run \
     --name ozp-backend \
     --link ozp-auth \
+    --link ozp-cache \
     -v ozp-database:/var/lib/ozp \
     -v ozp-media:/mnt/media \
     -v "${script_absolute_dir}/config:/etc/ozp:ro" \

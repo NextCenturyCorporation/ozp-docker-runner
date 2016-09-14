@@ -5,16 +5,18 @@ FROM python:3.4.5
 
 MAINTAINER Next Century Corporation "ozone_sales@nextcentury.com"
 
-ENV OZP_AUTH_RELEASE=ozp-auth.tar.gz
-
 # Add the ozp release bundle.  Note that using `ADD` here automatically
 # extracts the release tarball
-ADD $OZP_AUTH_RELEASE /
+ADD ozp-auth.tar.gz /
+
 WORKDIR /demo-auth-service
 
-RUN pip install -r requirements.txt
+RUN rm demoauth/settings.py && ln -s /etc/ozp/auth-settings.py demoauth/settings.py
 
-VOLUME /var/log/ozp-auth
+RUN pip install -r requirements.txt
+RUN mkdir -p /var/log/ozp
+
+VOLUME /etc/ozp
 
 EXPOSE 8000
 ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:8000", "demoauth.wsgi"]
