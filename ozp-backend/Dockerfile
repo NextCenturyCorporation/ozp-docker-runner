@@ -34,4 +34,12 @@ VOLUME /etc/ozp /var/lib/ozp /mnt/media /var/log/ozp /certs
 
 EXPOSE 8000
 
-ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:8000", "ozp.wsgi"]
+ENTRYPOINT [ \
+    "gunicorn", \
+    "--bind", "0.0.0.0:8000", \
+    "--log-file=/var/log/ozp/gunicorn_backend.log", \
+    "--keyfile=/certs/private/server.key", \
+    "--certfile=/certs/server.crt", \
+    "--ca-certs=/certs/rootCA.pem", \
+    "ozp.wsgi" \
+]

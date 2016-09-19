@@ -261,6 +261,9 @@ OZP = {
     }
 }
 
+# Necessary to generate URLs that work correctly with the reverse proxy
+FORCE_SCRIPT_NAME='/ozp-backend'
+
 # Plugin Info
 ACCESS_CONTROL_PLUGIN = 'default_access_control'
 AUTHORIZATION_PLUGIN = 'default_authorization'
