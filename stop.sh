@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. ./lib.sh
+
 containers=( ozp-backend ozp-auth ozp-proxy )
 
 echo 'STOPPING'
@@ -9,4 +11,4 @@ echo 'REMOVING'
 docker rm ${containers[*]}
 
 echo 'STOPPING AND REMOVING CACHE'
-./stop-cache.sh
+stop_cache

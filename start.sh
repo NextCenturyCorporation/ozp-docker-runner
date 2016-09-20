@@ -1,14 +1,12 @@
 #!/bin/sh
 set -e
 
-# Relative path of the directory containing this script
-script_dir="$(dirname "$0")"
+. ./lib.sh
 
-# Absolute path of the directory containing the script
-script_absolute_dir="$(cd "${script_dir}" && pwd)"
+script_absolute_dir="$(get_script_absolute_dir)"
 
 # Redis cache server
-./start-cache.sh
+start_cache
 
 # Auth Server
 docker run \
