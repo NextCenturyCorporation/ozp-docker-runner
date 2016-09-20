@@ -171,9 +171,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 #   from the browser
 STATIC_URL = '/static/'
 
-# MEDIA_ROOT is the absolute path to the folder that will hold user uploads
+# MEDIA_ROOT is the absolute path to the folder that will hold user uploads.
+# NOTE: Must include trailing slash
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-MEDIA_ROOT = '/mnt/media'
+MEDIA_ROOT = '/mnt/media/'
 
 # MEDIA_URL is the relative browser URL to be used when accessing media files
 #   from the browser

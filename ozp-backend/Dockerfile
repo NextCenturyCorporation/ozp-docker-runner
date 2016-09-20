@@ -27,9 +27,6 @@ RUN mkdir -p /var/lib/ozp /var/log/ozp
 # Install python dependency packages
 RUN pip install --no-index --find-links=wheelhouse -r requirements.txt
 
-# Add the script that creates the sample database.
-ADD sample-database.sh .
-
 VOLUME /etc/ozp /var/lib/ozp /mnt/media /var/log/ozp /certs
 
 EXPOSE 8000
