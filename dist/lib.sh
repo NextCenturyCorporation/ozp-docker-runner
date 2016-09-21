@@ -1,5 +1,7 @@
 # This file is meant to be sourced from the other shell scripts in this directory
 
+docker_registry=localhost:5000
+
 # determine the absolute path to the directory containing the running script
 get_script_absolute_dir()
 {

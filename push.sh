@@ -5,5 +5,5 @@ set -e
 
 # Build the OZP containers
 for c in "${containers[@]}"; do
-    docker build -t "${docker_registry}/${c}" $c
+    docker push "${docker_registry}/${c}"
 done

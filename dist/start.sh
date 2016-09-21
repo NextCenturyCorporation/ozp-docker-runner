@@ -14,7 +14,7 @@ docker run \
     -v "${script_absolute_dir}/config:/etc/ozp:ro" \
     -v "${script_absolute_dir}/logs/ozp-auth:/var/log/ozp" \
     -d \
-    ozp-auth:latest
+    "${docker_registry}/ozp-auth:latest"
 
 # Backend
 # Mount "named volumes" for the database and media.
@@ -29,7 +29,7 @@ docker run \
     -v "${script_absolute_dir}/logs/ozp-backend:/var/log/ozp" \
     -v "${script_absolute_dir}/certs:/certs" \
     -d \
-    ozp-backend:latest
+    "${docker_registry}/ozp-backend:latest"
 
 # Reverse Proxy
 docker run \
@@ -41,4 +41,4 @@ docker run \
     -d \
     -p 8080:80 \
     -p 8443:443 \
-    ozp-proxy:latest
+    "${docker_registry}/ozp-proxy:latest"
