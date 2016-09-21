@@ -13,6 +13,8 @@ set -e
 # Absolute path of the directory containing the script
 script_absolute_dir="$(get_script_absolute_dir)"
 
+container="${docker_registry}/ozp-backend:latest"
+
 # Common args between the two `docker run` commands
 run_args=(
     "--entrypoint" "/bin/sh"
@@ -24,13 +26,16 @@ run_args=(
     "-v" "${script_absolute_dir}/config:/etc/ozp:ro"
     "-v" "${script_absolute_dir}/logs/ozp-backend:/var/log/ozp"
     "-v" "${script_absolute_dir}/certs:/certs"
-    "ozp-backend:latest"
+    "${container}"
 )
 
 # Start the cache and backend and run the commands necessary to get the database built and
 # populated with sample data
 echo 'Starting Cache'
 start_cache
+
+echo 'Ensuring ozp-backend is downloaded'
+docker pull "${container}"
 
 echo -n 'Creating Database... '
 # Everything after the run_args is passed to the entrypoint command (/bin/sh) as arguments
