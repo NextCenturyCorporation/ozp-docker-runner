@@ -27,7 +27,7 @@ docker run \
     -v ozp-media:/mnt/media \
     -v "${script_absolute_dir}/config:/etc/ozp:ro" \
     -v "${script_absolute_dir}/logs/ozp-backend:/var/log/ozp" \
-    -v "${script_absolute_dir}/certs:/certs" \
+    -v "${script_absolute_dir}/certs:/certs:ro" \
     -d \
     "${docker_registry}/ozp-backend:latest"
 
@@ -36,7 +36,7 @@ docker run \
     --name ozp-proxy \
     --link ozp-backend \
     -v "${script_absolute_dir}/logs/nginx:/var/log/nginx" \
-    -v "${script_absolute_dir}/certs:/certs" \
+    -v "${script_absolute_dir}/certs:/certs:ro" \
     -v "${script_absolute_dir}/config:/etc/ozp:ro" \
     -d \
     -p 8080:80 \
