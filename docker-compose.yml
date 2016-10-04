@@ -1,0 +1,32 @@
+version: '2'
+services:
+    ozp-cache:
+        image: redis:3.2-alpine
+        container_name: ozp-cache
+    ozp-auth:
+        image: ${OZP_REGISTRY}/ozp-auth:latest
+        container_name: ozp-auth
+    ozp-proxy:
+        image: ${OZP_REGISTRY}/ozp-proxy:latest
+        container_name: ozp-proxy
+        links:
+            - ozp-backend
+        volumes:
+            - ./logs/nginx:/var/log/nginx
+            - ./certs:/certs:ro
+            # Uncomment the volume below to use a custom configuration file.
+            # - ./config:/etc/ozp:ro
+        ports:
+            - "8080:80"
+            - "8443:443"
+    ozp-backend:
+        image: ${OZP_REGISTRY}/ozp-backend-sample-data:latest
+        container_name: ozp-backend
+        links:
+            - ozp-auth
+            - ozp-cache
+        volumes:
+            - ./logs/ozp-backend:/var/log/ozp
+            - ./certs:/certs:ro
+            # Uncomment the volume below to use a custom configuration file.
+            # - ./config:/etc/ozp:ro
