@@ -21,6 +21,8 @@ services:
             - "8443:443"
     ozp-backend:
         image: ${OZP_REGISTRY}/ozp-backend-sample-data:latest
+        #image: ${OZP_REGISTRY}/ozp-backend-sqlite:latest
+        #image: ${OZP_REGISTRY}/ozp-backend:latest
         container_name: ozp-backend
         links:
             - ozp-auth
