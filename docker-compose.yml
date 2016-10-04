@@ -32,3 +32,6 @@ services:
             - ./certs:/certs:ro
             # Uncomment the volume below to use a custom configuration file.
             # - ./config:/etc/ozp:ro
+
+            # Uncomment the following if using an image other than ozp-backend-sample-data
+            # - /mnt/media
