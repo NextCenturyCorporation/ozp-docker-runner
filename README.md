@@ -22,7 +22,7 @@ the corresponding properties in the OZP backend's settings.py file:
 * OZP_DB_PASSWORD
 * OZP_DB_HOST
 * OZP_DB_PORT
-* OZP_DB_APP_ROOT (default: https://localhost:8443/)
+* OZP_APP_ROOT (default: https://localhost:8443/)
 
 _Note: If changing the database settings, you will also need to adjust the
 `image` line in docker-compose.yml.  See the description of ozp-backend, images below
