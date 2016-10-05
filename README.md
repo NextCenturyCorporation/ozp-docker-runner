@@ -12,9 +12,9 @@ Execute the following command to start OZP:
 `docker-compose up`
 
 ## Configuration
-Commonly-used configurations can be set using environment variables.
-The following variables are supported, and affect the corresponding properties
-in the OZP backend's settings.py file:
+Commonly-used configurations can be set using environment variables which can be
+defined in ozp-variables.env.  The following variables are supported, and affect
+the corresponding properties in the OZP backend's settings.py file:
 
 * OZP_DB_ENGINE
 * OZP_DB_NAME

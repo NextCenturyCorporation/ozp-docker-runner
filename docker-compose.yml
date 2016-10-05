@@ -24,6 +24,8 @@ services:
         #image: ${OZP_REGISTRY}/ozp-backend-sqlite:latest
         #image: ${OZP_REGISTRY}/ozp-backend:latest
         container_name: ozp-backend
+        env_file:
+            - ozp-variables.env
         links:
             - ozp-auth
             - ozp-cache
