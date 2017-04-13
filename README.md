@@ -10,6 +10,8 @@ which provide easy access to certs and logs used by the containers.
 ## Quick Start
 Execute the following command to start OZP:
 `docker-compose up`
+point a browser to https://localhost:8443/ozp-center/
+You can login with wsmith/password.  See below in ozp-auth for more users.
 
 ## Configuration
 Commonly-used configurations can be set using environment variables which can be
@@ -46,6 +48,8 @@ represents a dummy implementation of a RESTful user information service which
 OZP can use to retrieve updated information about users who have logged in.
 ozp-auth containers run a gunicorn process on port 8000.  This container is
 exposed to others under the hostname `ozp-auth`.
+
+For usernames and passwords, see the bottom of https://github.com/ozoneplatform/ozp-ansible#quickstart
 
 ### ozp-backend
 The application server backend for OZP.  Containers based on this image expose a
