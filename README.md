@@ -8,10 +8,10 @@ which provide easy access to certs and logs used by the containers.
 * Docker Compose (included in newer releases of Docker Engine)
 
 ## Quick Start
-Execute the following command to start OZP:
+* Execute the following command to start OZP:
 `docker-compose up`
-point a browser to https://localhost:8443/ozp-center/
-You can login with wsmith/password.  See below in ozp-auth for more users.
+* point a browser to https://localhost:8443/ozp-center/
+* You can login with wsmith/password.  See below in ozp-auth for more users.
 
 ## Configuration
 Commonly-used configurations can be set using environment variables which can be
